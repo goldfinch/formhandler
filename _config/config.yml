@@ -1,0 +1,7 @@
+---
+Name: formhandler
+---
+
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - Goldfinch\Formhandler\Extensions\SiteConfigExtension

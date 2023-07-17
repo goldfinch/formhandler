@@ -1,5 +1,9 @@
 ---
 Name: goldfinch-formhandler
+After:
+  - '#goldfinch-tinify'
+  - '#goldfinch-socialkit'
+  - '#goldfinch-instsupply'
 ---
 
 SilverStripe\SiteConfig\SiteConfig:

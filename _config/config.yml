@@ -1,7 +1,6 @@
 ---
 Name: goldfinch-formhandler
 After:
-  - '#goldfinch-tinify'
   - '#goldfinch-instsupply'
 ---
 

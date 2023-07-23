@@ -1,6 +1,6 @@
 <?php
 
-namespace Goldfinch\Formhandler\Helpers;
+namespace Goldfinch\FormHandler\Helpers;
 
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\RequestHandler;

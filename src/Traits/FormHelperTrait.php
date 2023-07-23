@@ -1,8 +1,8 @@
 <?php
 
-namespace Goldfinch\Formhandler\Traits;
+namespace Goldfinch\FormHandler\Traits;
 
-use Goldfinch\Formhandler\Helpers\Validator;
+use Goldfinch\FormHandler\Helpers\Validator;
 use SilverStripe\Control\HTTPRequest;
 
 trait FormHelperTrait

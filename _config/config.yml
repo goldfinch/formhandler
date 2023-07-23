@@ -6,4 +6,4 @@ After:
 
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
-    - Goldfinch\Formhandler\Extensions\SiteConfigExtension
+    - Goldfinch\FormHandler\Extensions\SiteConfigExtension

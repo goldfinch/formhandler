@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Goldfinch\\Formhandler\\": "src/"
+            "Goldfinch\\FormHandler\\": "src/"
         }
     },
     "minimum-stability": "dev",

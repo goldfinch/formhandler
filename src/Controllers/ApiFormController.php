@@ -11,12 +11,12 @@ class ApiFormController extends Controller
 {
     private static $url_segment = 'api/form';
 
-    private static $allowed_actions = [
-        'contactForm',
-    ];
-
     private static $url_handlers = [
         'POST contact' => 'contactForm',
+    ];
+
+    private static $allowed_actions = [
+        'contactForm',
     ];
 
     public function init()

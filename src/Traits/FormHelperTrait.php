@@ -2,14 +2,15 @@
 
 namespace Goldfinch\FormHandler\Traits;
 
-use Goldfinch\FormHandler\Helpers\Validator;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Security\SecurityToken;
+use Goldfinch\FormHandler\Helpers\Validator;
 
 trait FormHelperTrait
 {
     protected function authorized(HTTPRequest $request)
     {
-        if(!$request->isAjax() || !$request->isPOST())
+        if(!$request->isPOST())
         {
             return $this->httpError(403, 'This action is unauthorized');
         }

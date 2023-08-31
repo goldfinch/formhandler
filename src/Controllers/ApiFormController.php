@@ -2,13 +2,16 @@
 
 namespace Goldfinch\FormHandler\Controllers;
 
-use Goldfinch\FormHandler\Helpers\Rule;
-use Goldfinch\FormHandler\Services\SendGrid;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
+use Goldfinch\FormHandler\Helpers\Rule;
+use Goldfinch\FormHandler\Services\SendGrid;
+use Goldfinch\FormHandler\Traits\FormHelperTrait;
 
 class ApiFormController extends Controller
 {
+    use FormHelperTrait;
+
     private static $url_segment = 'api/form';
 
     private static $url_handlers = [
@@ -36,13 +39,14 @@ class ApiFormController extends Controller
           'message'     => 'required',
         ], $request);
 
-        SendGrid::send($request, [
-            'recipients' => 'art@swordfox.nz',
+        dd(SendGrid::send($request, [
+            'from' => 'test@test.nz',
+            'recipients' => 'asd@qwe.com',
             'subject' => 'Test API form',
-        ]);
+        ]));
 
         // ..
 
-        return json_encode($data);
+        return json_encode(true);
     }
 }

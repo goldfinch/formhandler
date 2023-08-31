@@ -2,10 +2,14 @@
 
 namespace Goldfinch\FormHandler\Services;
 
-// TODO
+use SendGrid\Mail\Mail;
+use \SendGrid as SendGridCore;
+use SilverStripe\Core\Environment;
+use SilverStripe\Control\HTTPRequest;
+
 class SendGrid
 {
-    public static function sendGrid(HTTPRequest $request, $supplies)
+    public static function send(HTTPRequest $request, $supplies)
     {
         $data = $request->postVars();
 
@@ -23,7 +27,7 @@ class SendGrid
 
             if(filter_var($allRecipients[0], FILTER_VALIDATE_EMAIL))
             {
-                $from = $allRecipients[0];
+                // $from = $allRecipients[0];
                 $to = $allRecipients[0];
             }
         }
@@ -31,23 +35,30 @@ class SendGrid
         {
             if(filter_var($recipients, FILTER_VALIDATE_EMAIL))
             {
-                $from = $recipients;
+                // $from = $recipients;
                 $to = $recipients;
             }
         }
 
         // replace dynamic variables in the subject
-        if(isset($data['name']) && strpos($subject, '[name]') !== false)
-        {
-            $subject = str_replace('[name]', $data['name'], $subject);
-        }
+        // if(isset($data['name']) && strpos($subject, '[name]') !== false)
+        // {
+        //     $subject = str_replace('[name]', $data['name'], $subject);
+        // }
+
+        // dd($from, $subject, $data, $to);
 
         $mail = new Mail();
-        $mail->setFrom($from);
+        $mail->setFrom($supplies['from']);
         $mail->setSubject($subject);
         $mail->setReplyTo($data['email'], $data['name']);
         $mail->addTo($to);
-        $mail->addBcc(Environment::getEnv('SS_BCC_EMAIL'));
+
+        $bccEmail = Environment::getEnv('SS_BCC_EMAIL');
+
+        if ($bccEmail) {
+          $mail->addBcc(Environment::getEnv('SS_BCC_EMAIL'));
+        }
 
         // add other recipients
         if(explode(',', $recipients) > 1)
@@ -87,13 +98,14 @@ class SendGrid
         $caller = debug_backtrace()[1]['function'];
         $callerEmail = $caller . 'Email';
 
-        $body = method_exists(__CLASS__, $callerEmail) ? $this->$callerEmail($data) : '';
+        $body = 'test message';
+        // $body = method_exists(__CLASS__, $callerEmail) ? $this->$callerEmail($data) : '';
 
         $mail->addContent(
           'text/html', $body
         );
 
-        $sg = new SendGrid(Environment::getEnv('SEND_GRID_KEY'));
+        $sg = new SendGridCore(Environment::getEnv('SEND_GRID_KEY'));
 
         $response = $sg->send($mail);
 

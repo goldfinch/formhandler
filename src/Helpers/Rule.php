@@ -4,7 +4,7 @@ namespace Goldfinch\FormHandler\Helpers;
 
 use SilverStripe\Core\Environment;
 use SilverStripe\Control\Director;
-use ReCaptcha\ReCaptcha as GoogleRecaptcha;
+use Goldfinch\Service\GoogleRecaptcha;
 
 class Rule
 {

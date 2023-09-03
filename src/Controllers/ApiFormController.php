@@ -6,7 +6,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
 use Goldfinch\FormHandler\Helpers\Rule;
 use Goldfinch\FormHandler\Traits\FormHelperTrait;
-use Goldfich\Service\SendGrid;
+use Goldfinch\Service\SendGrid;
 
 class ApiFormController extends Controller
 {
@@ -39,7 +39,9 @@ class ApiFormController extends Controller
           'message'     => 'required',
         ], $request);
 
-        SendGrid::send([
+        $send = new SendGrid();
+
+        $send->send([
             'from' => 'from@test.nz',
             'to' => 'to@test.nz',
             'subject' => 'Test subject',

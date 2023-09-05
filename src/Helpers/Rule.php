@@ -12,7 +12,7 @@ class Rule
     {
         return function ($value) {
 
-            $recaptcha = new GoogleRecaptcha(Environment::getEnv('GOOGLE_RECAPTCHA_SECRET_KEY'));
+            $recaptcha = new GoogleRecaptcha(Environment::getEnv('APP_GOOGLE_RECAPTCHA_SECRET_KEY'));
 
             // if(Director::isLive()) {
 
@@ -29,7 +29,7 @@ class Rule
 
             // }
 
-            $resp = $recaptcha
+            $resp = $recaptcha->client
                 // ->setExpectedHostname($hostname)
                 // ->setExpectedHostname('localhost')
                 ->setExpectedHostname($_SERVER['HTTP_HOST'])

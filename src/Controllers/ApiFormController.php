@@ -2,10 +2,13 @@
 
 namespace Goldfinch\FormHandler\Controllers;
 
+use Goldfinch\Service\SendGrid;
+use Goldfinch\Illuminate\Validator;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
+use Goldfinch\FormHandler\Helpers\Rule;
+use Goldfinch\Service\Rules\GoogleRecaptcha;
 use Goldfinch\FormHandler\Traits\FormHelperTrait;
-use Goldfinch\Service\SendGrid;
 
 class ApiFormController extends Controller
 {
@@ -30,27 +33,26 @@ class ApiFormController extends Controller
     {
         $this->authorized($request);
 
-        $this->validator([
-          'token'       => ['required', Rule::recaptcha()],
-          'name'        => 'required|alpha_spaces',
-          'email'       => 'required|email',
+        $data = $request->postVars();
+
+        Validator::validate($data, [
+          'token'       => ['required', new GoogleRecaptcha],
+          'name'        => 'required|alpha',
           'phone'       => 'required|regex:/^[\d\s\+\-]+$/',
+          'email'       => 'required|email',
+          'how'         => 'required',
           'message'     => 'required',
-        ], $request);
-
-        $send = new SendGrid();
-
-        $send->send([
-            'from' => 'from@test.nz',
-            'to' => 'to@test.nz',
-            'subject' => 'Test subject',
-            'reply_to' => 'reply@test.nz',
-            'reply_to_name' => 'Reply name',
-            'bcc' => 'bcc@test.nz',
-            'body' => '<p><strong>Big</strong> font</p>',
         ]);
 
-        // ..
+        SendGrid::send([
+          'name' => 'John Doe',
+          'from' => 'contact@johndoe.com',
+          'to' => 'none@persone.com',
+          'subject' => 'John Doe enquiry',
+          'reply_to' => 'contact@johndoe.com',
+          'bcc' => 'bcc@johndoe.com',
+          'body' => '<strong>John</strong>Doe',
+        ]);
 
         return json_encode(true);
     }

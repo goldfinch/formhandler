@@ -4,7 +4,6 @@ namespace Goldfinch\FormHandler\Traits;
 
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Security\SecurityToken;
-use Goldfinch\FormHandler\Helpers\Validator;
 
 trait FormHelperTrait
 {
@@ -18,10 +17,5 @@ trait FormHelperTrait
         {
             return $this->httpError(401, 'Unauthorized');
         }
-    }
-
-    protected function validator($schema, $request)
-    {
-        Validator::validate($schema, $request);
     }
 }

@@ -4,7 +4,6 @@ namespace Goldfinch\FormHandler\Controllers;
 
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
-use Goldfinch\FormHandler\Helpers\Rule;
 use Goldfinch\FormHandler\Traits\FormHelperTrait;
 use Goldfinch\Service\SendGrid;
 

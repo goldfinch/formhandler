@@ -15,7 +15,7 @@
         "silverstripe/admin": "^2.0",
         "unclecheese/display-logic": "^3.0",
         "goldfinch/service": "dev-main",
-        "rakit/validation": "1.4.0"
+        "goldfinch/illuminate": "dev-master"
     },
     "autoload": {
         "psr-4": {

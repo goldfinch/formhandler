@@ -3,7 +3,3 @@ Name: goldfinch-formhandler
 After:
   - '#goldfinch-instsupply'
 ---
-
-SilverStripe\SiteConfig\SiteConfig:
-  extensions:
-    - Goldfinch\FormHandler\Extensions\SiteConfigExtension

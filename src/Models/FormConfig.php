@@ -1,19 +1,23 @@
 <?php
 
-namespace Goldfinch\FormHandler\Extensions;
+namespace Goldfinch\FormHandler\Models;
 
-use SilverStripe\Forms\FieldList;
+use JonoM\SomeConfig\SomeConfig;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\FieldGroup;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\CompositeField;
-use SilverStripe\ORM\ValidationResult;
 use UncleCheese\DisplayLogic\Forms\Wrapper;
-use SilverStripe\Forms\HTMLEditor\HtmlEditorField;
+use SilverStripe\View\TemplateGlobalProvider;
+use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 
-class SiteConfigExtension extends DataExtension
+class FormConfig extends DataObject implements TemplateGlobalProvider
 {
+    use SomeConfig;
+
+    private static $table_name = 'FormConfig';
+
     private static $db = [
         'FormContactSubject' => 'Varchar',
         'FormContactRecipients' => 'Varchar',
@@ -25,9 +29,22 @@ class SiteConfigExtension extends DataExtension
         'FormContactSenderBody' => 'HTMLText',
     ];
 
-    public function updateCMSFields(FieldList $fields)
+    public function getCMSFields()
     {
-        $fields->addFieldsToTab('Root.Forms', [
+        $fields = parent::getCMSFields();
+
+        $fields->removeByName([
+          'FormContactSubject',
+          'FormContactRecipients',
+          'FormContactBody',
+          'FormContactSuccessMessage',
+          'FormContactFailMessage',
+          'FormContactSendSenderEmail',
+          'FormContactSenderSubject',
+          'FormContactSenderBody',
+        ]);
+
+        $fields->addFieldsToTab('Root.Main', [
 
             CompositeField::create(
 
@@ -38,9 +55,9 @@ class SiteConfigExtension extends DataExtension
 
                         TextField::create('FormContactSubject', 'Subject')->setAttribute('placeholder', 'Contact enquiry')->addExtraClass('fcol-6'),
                         TextField::create('FormContactRecipients', 'Recipients')->setAttribute('placeholder', 'johndoe@johndoe.com')->addExtraClass('fcol-6'),
-                        HtmlEditorField::create('FormContactBody', 'Body')->addExtraClass('fcol-12'),
-                        HtmlEditorField::create('FormContactSuccessMessage', 'Form sent message')->addExtraClass('fcol-12'),
-                        HtmlEditorField::create('FormContactFailMessage', 'Form failed message')->addExtraClass('fcol-12'),
+                        HTMLEditorField::create('FormContactBody', 'Body')->addExtraClass('fcol-12'),
+                        HTMLEditorField::create('FormContactSuccessMessage', 'Form sent message')->addExtraClass('fcol-12'),
+                        HTMLEditorField::create('FormContactFailMessage', 'Form failed message')->addExtraClass('fcol-12'),
 
                     )->setTitle('Email to admin'),
 
@@ -50,7 +67,7 @@ class SiteConfigExtension extends DataExtension
                         FieldGroup::create(
 
                             TextField::create('FormContactSenderSubject', 'Subject')->setAttribute('placeholder', 'Thank you for your enquiry')->addExtraClass('fcol-6'),
-                            HtmlEditorField::create('FormContactSenderBody', 'Body')->addExtraClass('fcol-12'),
+                            HTMLEditorField::create('FormContactSenderBody', 'Body')->addExtraClass('fcol-12'),
 
                         )->setTitle('Email to sender'),
 
@@ -61,10 +78,7 @@ class SiteConfigExtension extends DataExtension
             ),
 
         ]);
-    }
 
-    public function validate(ValidationResult $validationResult)
-    {
-        // $validationResult->addError('Error message');
+        return $fields;
     }
 }

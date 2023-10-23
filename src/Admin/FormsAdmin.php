@@ -2,13 +2,17 @@
 
 namespace Goldfinch\FormHandler\Admin;
 
-use Goldfinch\FormHandler\Models\FormEnquiry;
 use SilverStripe\Admin\ModelAdmin;
+use JonoM\SomeConfig\SomeConfigAdmin;
+use Goldfinch\FormHandler\Models\FormConfig;
+use Goldfinch\FormHandler\Models\FormEnquiry;
 use SilverStripe\Forms\GridField\GridFieldConfig;
 use SilverStripe\Forms\GridField\GridFieldImportButton;
 
-class FormEnquiryAdmin extends ModelAdmin
+class FormsAdmin extends ModelAdmin
 {
+    use SomeConfigAdmin;
+
     private static $url_segment = 'form-enquiries';
 
     private static $menu_title = 'Form enquiries';
@@ -16,6 +20,9 @@ class FormEnquiryAdmin extends ModelAdmin
     private static $managed_models = [
         FormEnquiry::class => [
             'title' => 'Enquiries',
+        ],
+        FormConfig::class => [
+            'title'=> 'Settings',
         ],
     ];
 

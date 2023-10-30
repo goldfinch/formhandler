@@ -10,6 +10,7 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\CompositeField;
 use UncleCheese\DisplayLogic\Forms\Wrapper;
 use SilverStripe\View\TemplateGlobalProvider;
+use Goldfinch\JSONEditor\Forms\JSONEditorField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 
 class FormConfig extends DataObject implements TemplateGlobalProvider
@@ -27,6 +28,8 @@ class FormConfig extends DataObject implements TemplateGlobalProvider
         'FormContactSendSenderEmail' => 'Boolean',
         'FormContactSenderSubject' => 'Varchar',
         'FormContactSenderBody' => 'HTMLText',
+
+        'FormsGeneralSettings' => 'Text',
     ];
 
     public function getCMSFields()
@@ -42,6 +45,7 @@ class FormConfig extends DataObject implements TemplateGlobalProvider
           'FormContactSendSenderEmail',
           'FormContactSenderSubject',
           'FormContactSenderBody',
+          'FormsGeneralSettings',
         ]);
 
         $fields->addFieldsToTab('Root.Main', [
@@ -74,6 +78,8 @@ class FormConfig extends DataObject implements TemplateGlobalProvider
                     )->displayIf('FormContactSendSenderEmail')->isChecked()->end(),
 
                 )->displayIf('FormContact')->isChecked()->end(),
+
+                JSONEditorField::create('FormsGeneralSettings', 'General Settings', '{}', null, '{}')->addExtraClass('mt-4'),
 
             ),
 

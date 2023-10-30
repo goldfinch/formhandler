@@ -15,7 +15,8 @@
         "silverstripe/admin": "^2.0",
         "unclecheese/display-logic": "^3.0",
         "goldfinch/service": "dev-main",
-        "goldfinch/illuminate": "dev-master"
+        "goldfinch/illuminate": "dev-master",
+        "goldfinch/json-editor": "dev-master"
     },
     "autoload": {
         "psr-4": {

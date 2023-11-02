@@ -79,7 +79,7 @@ class FormConfig extends DataObject implements TemplateGlobalProvider
 
                 )->displayIf('FormContact')->isChecked()->end(),
 
-                JSONEditorField::create('FormsGeneralSettings', 'General Settings')->addExtraClass('mt-4'),
+                JSONEditorField::create('FormsGeneralSettings', 'General Settings', $this)->addExtraClass('mt-4'),
 
             ),
 

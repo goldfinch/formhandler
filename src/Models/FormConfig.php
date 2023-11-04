@@ -11,6 +11,7 @@ use SilverStripe\Forms\CompositeField;
 use UncleCheese\DisplayLogic\Forms\Wrapper;
 use SilverStripe\View\TemplateGlobalProvider;
 use Goldfinch\JSONEditor\Forms\JSONEditorField;
+use Goldfinch\JSONEditor\ORM\FieldType\DBJSONText;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 
 class FormConfig extends DataObject implements TemplateGlobalProvider
@@ -29,7 +30,7 @@ class FormConfig extends DataObject implements TemplateGlobalProvider
         'FormContactSenderSubject' => 'Varchar',
         'FormContactSenderBody' => 'HTMLText',
 
-        'FormsGeneralSettings' => 'Text',
+        'FormsGeneralSettings' => DBJSONText::class,
     ];
 
     public function getCMSFields()
